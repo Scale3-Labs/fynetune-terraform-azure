@@ -127,6 +127,7 @@ Once you have added it to config, run terraform apply again to update the app se
 
 - You may now sign in to the application by launching the output URL from the terraform apply.
 - Use the root login if you haven't configured SSO
+- Enter your license key at the prompt
 - Refer to the environment variables below to further customize the application to meet your enterprise requirements.
 
 ## Reference Environment Variables
