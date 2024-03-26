@@ -22,6 +22,7 @@ variable "github_release_tag" {
   default     = "0.0.1"
 }
 
+
 variable "docker_registry_server" {
   description = "Docker registry server"
   default     = "https://fynetune.azurecr.io"
@@ -170,10 +171,21 @@ variable "static_env_variables" {
     AZURE_OPENAI_EMBEDDING_MODEL_NAME : "embed"
     NEXT_PUBLIC_AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME : "embed"
     HOSTING_PLATFORM : "Azure"
-    NEXT_PUBLIC_ENABLE_SIGNUP : "false"
-    NEXT_PUBLIC_GOOGLE_AUTH : "false"
-    NEXT_PUBLIC_OKTA_AUTH : "true"
     NEXT_PUBLIC_DISALLOW_LOGIN_FROM_HOMEPAGE : "true"
     NEXTAUTH_SECRET : "secret"
   }
+}
+variable "license_public_key" {
+  description = "License Key"
+  default     = <<EOF
+                -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtvJJgtYSmZ+P2nOoOWrC
+nu4Kf2nmAi9XMHbfTHiYwfhtCix48tOyaOPKJFg/q8JmwEE54hS8cwPHMUMVYM/y
+k1njO/CA6mThJOQlqA4/APY/RTdjpMAReChZSJDLQleoHgqw2xtLVF0DE42yHfzq
+J2PhLbl+uGObxVg+/nWAkkcrk5iaY2q4Z7XJtoKm5UqXuDXirklLNkv3NQH7fvDA
+5/ZQ45suVG8Yw1yBBpIRH7fVHpwrAyw1FIQNMzBlcsIxzS6TBluv2X43ktE7hPXb
+exmfDS4U8XJXu49BPIJAinfd+AY/YLqIHmLMNos+feNowy0Zn5pE+64+Zw/H4zJF
+zwIDAQAB
+-----END PUBLIC KEY-----
+                EOF
 }

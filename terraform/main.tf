@@ -121,18 +121,18 @@ resource "azurerm_linux_web_app" "fynetune_app_service" {
 
   app_settings = merge(var.static_env_variables,
     {
+      ADMIN_EMAIL                                 = var.admin_email
+      ADMIN_PASSWORD                              = var.admin_password
       AZURE_AISEARCH_ENDPOINT                     = "https://${azurerm_search_service.fynetune_search_service.name}.search.windows.net"
-      NEXT_PUBLIC_AZURE_AISEARCH_ENDPOINT         = "https://${azurerm_search_service.fynetune_search_service.name}.search.windows.net"
       AZURE_AISEARCH_KEY                          = azurerm_search_service.fynetune_search_service.primary_key
       AZURE_OPENAI_URL                            = azurerm_cognitive_account.fynetune_cognitive_account.endpoint
-      NEXT_PUBLIC_AZURE_OPENAI_MODEL_API_ENDPOINT = "${azurerm_cognitive_account.fynetune_cognitive_account.endpoint}openai/deployments/"
       AZURE_OPENAI_API_KEY                        = azurerm_cognitive_account.fynetune_cognitive_account.primary_access_key
-      NEXT_PUBLIC_AZURE_OPENAI_API_KEY            = azurerm_cognitive_account.fynetune_cognitive_account.primary_access_key
       AZURE_STORAGE_ACCOUNT                       = azurerm_storage_account.fynetune_storage_account.name
-      NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT           = azurerm_storage_account.fynetune_storage_account.name
       AZURE_BLOB_CONNECTION_STRING                = azurerm_storage_account.fynetune_storage_account.primary_connection_string
+      HOST_URL                                    = "https://${local.fynetune_app_service_name}.azurewebsites.net"
+      KEY_MESSAGE                                 = "{\"message\":\"This is a secret message.\",\"expiry\":\"2024-05-24T06:13:41.045Z\"}"
+      LICENSE_PUBLIC_KEY                          = var.license_public_key
       POSTGRES_HOST                               = azurerm_postgresql_flexible_server.fynetune_postgresql_server.fqdn
-      NEXT_PUBLIC_POSTGRES_HOST                   = azurerm_postgresql_flexible_server.fynetune_postgresql_server.fqdn
       POSTGRES_USER                               = var.postgres_admin_username
       POSTGRES_PASSWORD                           = var.postgres_admin_password
       POSTGRES_DATABASE                           = var.postgres_database_name
@@ -144,6 +144,11 @@ resource "azurerm_linux_web_app" "fynetune_app_service" {
       NEXTAUTH_URL                                = "https://${local.fynetune_app_service_name}.azurewebsites.net"
       NEXTAUTH_URL_INTERNAL                       = "https://${local.fynetune_app_service_name}.azurewebsites.net"
       NEXT_PUBLIC_APP_DOMAIN                      = "${local.fynetune_app_service_name}.azurewebsites.net"
+      NEXT_PUBLIC_AZURE_STORAGE_ACCOUNT           = azurerm_storage_account.fynetune_storage_account.name
+      NEXT_PUBLIC_POSTGRES_HOST                   = azurerm_postgresql_flexible_server.fynetune_postgresql_server.fqdn
+      NEXT_PUBLIC_AZURE_OPENAI_API_KEY            = azurerm_cognitive_account.fynetune_cognitive_account.primary_access_key
+      NEXT_PUBLIC_AZURE_OPENAI_MODEL_API_ENDPOINT = "${azurerm_cognitive_account.fynetune_cognitive_account.endpoint}openai/deployments/"
+      NEXT_PUBLIC_AZURE_AISEARCH_ENDPOINT         = "https://${azurerm_search_service.fynetune_search_service.name}.search.windows.net"
       MATOMO_URL                                  = var.matomo_app_url
       MATOMO_ID                                   = var.matomo_id
       OKTA_CLIENT_ID                              = var.okta_client_id
@@ -152,9 +157,6 @@ resource "azurerm_linux_web_app" "fynetune_app_service" {
       SPLUNK_ORG_TOKEN                            = var.splunk_org_token
       SPLUNK_REALM                                = var.splunk_realm
       SPLUNK_URL                                  = var.splunk_url
-      ADMIN_EMAIL                                 = var.admin_email
-      ADMIN_PASSWORD                              = var.admin_password
-
     }
   )
 
